@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback </title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="head">
+    <h1>SUBMIT YOUR FEEDBACK</h1>
+  </div>
+  <div class="form">
+    <fieldset>
+      <form action="submit_feedback.php" method="POST" id="form" onsubmit="return validateForm()">
+        <label for="name">Name:</label><br><br>
+        <input type="text" id="nam" name="Name" > <br><br>
+        <span id="name-error" class="error-message"></span>
+        <label for="email">Email:</label><br><br>
+        <input type="text" id="emal" name="Email" > <br><br>
+        <span id="email-error" class="error-message"></span>
+        <label for="rating">How was your Experience?</label><br><br>
+        <select name="Rating" id="rating" >
+          <option value="1">1/5</option>
+          <option value="2">2/5</option>
+          <option value="3">3/5</option>
+          <option value="4">4/5</option>
+          <option value="5">5/5</option>
+        </select><br><br>
+
+        <label for="Feedback">Describe your Experience:</label><br><br>
+        <textarea id="review" name="Feedback" rows="5" cols="50" ></textarea><br><br>
+        <span id="feedback-error" class="error-message"></span>
+        <button type="submit">submit</button>
+
+      </form>
+    </fieldset>
+  </div>
+
+  <script>
+    function validateForm() {
+      var name = document.getElementById('nam').value.trim();
+      var email = document.getElementById('emal').value.trim();
+      var feedback = document.getElementById('review').value.trim();
+      var rating = document.getElementById('rating').value.trim();
+      var errorMessage = "";
+
+      // Validate Name
+      if (name === "") {
+        errorMessage += "Name cannot be empty\n";
+        document.getElementById("name-error").innerHTML = errorMessage;
+      } else {
+        document.getElementById("name-error").innerHTML = "";
+      }
+
+      // Validate Email
+      if (email === "") {
+        errorMessage += "Email cannot be empty\n";
+        document.getElementById("email-error").innerHTML = errorMessage;
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+        errorMessage += "Invalid email format\n";
+        document.getElementById("email-error").innerHTML = errorMessage;
+      } else {
+        document.getElementById("email-error").innerHTML = "";
+      }
+
+      // Validate Feedback
+      if (feedback === "") {
+        errorMessage += "Feedback cannot be empty\n";
+        document.getElementById("feedback-error").innerHTML = errorMessage;
+      } else {
+        document.getElementById("feedback-error").innerHTML = "";
+      }
+
+      // Validate Rating
+      if (rating === "") {
+        errorMessage += "Please select a rating\n";
+      }
+
+      // Display error message and prevent form submission if there are errors
+      if (errorMessage !== "") {
+        alert(errorMessage);
+        return false;
+      }
+      return true; // Allow form submission if all validations pass
+    }
+  </script>
+
+</body>
+
+</html>
